@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 📋 ========================================================================================
+     📌 POM.XML (Project Object Model): el archivo "cerebro" de Maven.
+         Maven es la herramienta que gestiona el proyecto: compila (#1), descarga librerías
+         (dependencias), empaqueta y ejecuta. IntelliJ detecta este archivo y todo lo que
+         declares aquí queda disponible para el código Java.
+
+     🌳 Estructura de árbol de Maven:
+         - modelVersion     → versión del formato POM (siempre 4.0.0, así viene por estándar).
+         - groupId          → el "apellido" del proyecto (cómo se agrupa, estilo dominio/empresa).
+         - artifactId       → el "nombre" del proyecto (la app/pieza concreta).
+         - version          → la versión del proyecto.
+         - dependencies     → aquí se LISTAN las librerías externas que la app necesita.
+
+     💡 Del grupoId+artifactId+version sale el "GA-V" (coordenada única del proyecto).
+     ======================================================================================== -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- 🧩 modelVersion: versa de qué formato de POM hablamos. Siempre "4.0.0". -->
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 🏷️ COORDENADAS (identidad) del proyecto:
+         groupId    = zona_fit      → el grupo/paquete raíz del proyecto (mismo nombre del paquete Java).
+         artifactId = ZonaFit_java  → el nombre del proyecto/artefacto.
+         version    = 1.0-SNAPSHOT  → "SNAPSHOT" = versión en desarrollo (aún no publicada). -->
     <groupId>zona_fit</groupId>
     <artifactId>ZonaFit_java</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- 📦 DEPENDENCIAS: todas las librerías EXTERNAS que necesitamos.
+         Maven las descarga automáticamente de internet a la carpeta ~/.m2/repository
+         (en Windows: C:\Users\<tu_usuario>\.m2\repository).
+         💡 Ese es el origen de los JARs que aparecen en el "classpath" de IntelliJ
+         (ej: mysql-connector-j-8.0.33.jar). -->
     <dependencies>
+        <!-- 🔌 DEPENDENCIA PRINCIPAL: el CONECTOR DE MYSQL para Java.
+             Es la librería que nuestra clase Conexion.java usa para conectarse a la BD:
+             el driver "com.mysql.cj.jdbc.Driver" vive dentro de estos JARs.
+             - groupId    = com.mysql        → de la empresa MySQL/Oracle.
+             - artifactId = mysql-connector-j → la librería en sí (nombre del JAR).
+             - version    = 8.0.33           → versión compatible con MySQL 8.x.
+             ⚠️ OJO: si cambias la versión de MySQL o el puerto, esto debe seguir siendo compatible. -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -16,9 +49,16 @@
         </dependency>
     </dependencies>
 
+    <!-- ⚙️ PROPIEDADES: valores que usará Maven durante la compilación. -->
     <properties>
+        <!-- ☕ Versión de Java que usa el proyecto:
+             maven.compiler.source = 26 → el código se ESCRIBE en Java 26 (sintaxis que podemos usar).
+             maven.compiler.target = 26 → el código se COMPILA para Java 26 (bytecode generado).
+             Por eso en el código vemos "var", "text blocks (""", switch de flecha "->": todo eso es Java moderno. -->
         <maven.compiler.source>26</maven.compiler.source>
         <maven.compiler.target>26</maven.compiler.target>
+        <!-- 🧾 Encoding de los archivos: UTF-8 para que los acentos y emojis (✅❌😎) se guarden
+             y muestren bien en el código y en consola. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
